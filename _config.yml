@@ -1,4 +1,5 @@
 # theme: jekyll-theme-modernist
+theme: jekyll-theme-bef
 logo: # add logo name
 title: Bef - May
 description: > # this means to ignore newlines until "baseurl:"
