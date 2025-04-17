@@ -6,7 +6,10 @@ layout: main
   <div class="chapter">
     <a href="{{post.url | prepend: site.baseurl}}">
       {% if post.img %}
-        <img src={{ "/assets/img/" | prepend: site.baseurl | append: post.img }} alt="{{post.title}}">
+      <img
+              src="{{ site.baseurl }}/assets/img/{{ post.img }}"
+              alt="{{ post.title }}"
+      >
       {% endif %}
     </a>
     <a href="{{post.url | prepend: site.baseurl}}">
