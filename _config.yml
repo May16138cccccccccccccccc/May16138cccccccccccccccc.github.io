@@ -6,7 +6,7 @@ description: > # this means to ignore newlines until "baseurl:"
   程序员/太极修炼者/化妆师/作家的跨界成长社区，探讨技术赋能、文化传承与副业变现，
   提供技术博客运营、非遗数字化、开发者形象管理等实战指南
 permalink: ':title/'
-baseurl: "/blog" # the subpath of your site, e.g. /blog  /bef
+baseurl: "" # the subpath of your site, e.g. /blog  /bef
 url: "may.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 ## Banner settings
