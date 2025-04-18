@@ -1,4 +1,4 @@
- theme: jekyll-theme-modernist
+theme: jekyll-theme-modernist
 #theme: jekyll-theme-bef
 logo: # add logo name
 title: Bef - May
@@ -37,20 +37,20 @@ mailchimp: # add your MailChimp form identifier. For example - blogenjoyfreedom.
 #
 ## Tracker
 analytics:
-#
-## Paginate
-#paginate: 12
-#paginate_path: /page:num/
-#
-## Build settings
-#markdown: kramdown
-#plugins_dir:
-#  - jekyll-paginate
-#  - jekyll-sitemap
-#
-#gems:
-#  - jekyll-paginate
-#  - jekyll-sitemap
-#
-#include: [_pages]
-#exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+
+# Paginate
+paginate: 12
+paginate_path: /page:num/
+
+# Build settings
+markdown: kramdown
+plugins_dir:
+ - jekyll-paginate
+ - jekyll-sitemap
+
+gems:
+ - jekyll-paginate
+ - jekyll-sitemap
+
+include: [_pages]
+exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
