@@ -1,56 +1,99 @@
-theme: jekyll-theme-modernist
+# ==============================
+# 🌟 核心主题配置
+# ==============================
+theme: jekyll-theme-bef  # 必须准确匹配主题名称
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
 
-logo: # add logo name
-title: Bef - May
-description: > # this means to ignore newlines until "baseurl:"
-  "真正的极客精神，是既能用代码重构系统，也有勇气用热爱重构人生"
-permalink: ':title/'
-baseurl: "/May16138cccccccccccccccc.github.io" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+# ==============================
+# 🌟 站点基础信息
+# ==============================
+title: "太极键程开发者"  # 使用之前精选的小组名称
+description: "程序员 × 太极 × 化妆师 × 作家的跨界共生社区"
+logo: assets/images/logo.png  # 确保图片路径正确
+url: "https://yourusername.github.io"  # 生产环境地址
+baseurl: "/bef"  # 如果部署在仓库根目录则留空""
 
-## Banner settings
-video: mountains.mp4 # add banner video. Add your video file to the folder video
-banner-title: # add banner title
-banner-desc: # add banner description
+# ==============================
+# 🌟 Bef主题专属配置
+# ==============================
+# 导航菜单 (需创建对应md文件)
+navigation:
+  - title: 代码道场
+    url: /code-dojo/
+  - title: 跨界日志
+    url: /cross-log/
+  - title: 妆点算法
+    url: /makeup-algo/
+  - title: 技术咏春
+    url: /tech-wingchun/
+
+# 社交链接 (按需开启)
+social_links:
+  - name: GitHub
+    icon: github
+    url: https://github.com/yourusername
+  - name: CSDN
+    icon: rss  # 使用近似图标
+    url: https://blog.csdn.net/yourid
+  - name: 豆瓣小组
+    icon: users
+    url: https://www.douban.com/group/yourgroup
+
+# ==============================
+# 🌟 作者信息强化
+# ==============================
+author:
+  name: cm
+  bio: "全栈开发者 | 青羊宫太极弟子 | 非遗数字化志愿者"
+  avatar: /assets/images/avatar.jpg  # 200x200像素最佳
+  links:
+    - label: "📚 技术博客"
+      url: https://blog.csdn.net/yourid
+    - label: "🎭 文化志愿"
+      url: /volunteer
+
+# ==============================
+# 🌟 增强功能配置
+# ==============================
+# 评论区配置
+disqus:
+  shortname: your-disqus-shortname
+
+# 定制化搜索
+search: true
+search_provider: simple  # 适合技术文档的轻量搜索
+
+# 特色模块开关
+feature:
+  dark_mode: true  # 启用夜间模式
+  mathjax: false   # 技术文档需要时可开启
+
+# ==============================
+# 🌟 资源加载优化
+# ==============================
+sass:
+  style: compressed  # 压缩CSS文件
+
+# ==============================
+# 部署前检查清单
+# ==============================
+# 1. 确认已创建以下目录结构：
+#    ├── _pages
+#    │   ├── code-dojo.md
+#    │   ├── cross-log.md 
+#    │   └── ...
+#    ├── assets
+#    │   ├── images
+#    │   │   ├── logo.png
+#    │   │   └── avatar.jpg
+#    │   └── videos
+#    │       └── mountains.mp4
 #
-## Author settings
-author-pic: face.jpg # your photo
-author-name: cm# your name
-about-author: 这里是程序员打破次元壁的成长社区，专为「用代码改变世界，用热爱重塑生活」的斜杠开发者打造。# about author
-email: 2951400450@qq.com # your email
-phone: (496)-169-6557 # your pnone number
-website: https://blog.csdn.net/weixin_53538280?type=blog # you website
+# 2. 运行安装命令：
+#    bundle add jekyll-theme-bef
+#    bundle install
 #
-## Social link
-google_url:    # add url link
-twitter_url:   # add url link
-instagram_url: # add url link
-pinterest_url: # add url link
-dribbble_url:  # add url link
-facebook_url:  # add url link
-#
-## Disqus
-discus_identifier: mr-brown # add your discus identifier.  Not your username.  To get this, register your forum here with a unique ID: https://disqus.com/admin/create/
-#
-## Newsletter
-mailchimp: # add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e
-#
-## Tracker
-analytics:
-
-# Paginate
-paginate: 12
-paginate_path: /page:num/
-
-# Build settings
-markdown: kramdown
-# plugins_dir:
-#  - jekyll-paginate
-#  - jekyll-sitemap
-
-# gems:
-#  - jekyll-paginate
-#  - jekyll-sitemap
-
-# include: [_pages]
-# exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+# 3. 本地测试命令：
+#    bundle exec jekyll serve --livereload
