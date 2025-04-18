@@ -1,11 +1,11 @@
 theme: jekyll-theme-modernist
-#theme: jekyll-theme-bef
+
 logo: # add logo name
 title: Bef - May
 description: > # this means to ignore newlines until "baseurl:"
   "真正的极客精神，是既能用代码重构系统，也有勇气用热爱重构人生"
 permalink: ':title/'
-baseurl: "/bef" # the subpath of your site, e.g. /blog
+baseurl: "/May16138cccccccccccccccc.github.io" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 ## Banner settings
