@@ -1,0 +1,16 @@
+Index: _config.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>theme: jekyll-theme-modernist\r\nlogo: # add logo name\r\ntitle: Bef - May\r\ndescription: > # this means to ignore newlines until \"baseurl:\"\r\n  Write an awesome description for your new site here. You can edit this\r\n  line in _config.yml. It will appear in your document head meta (for\r\n  Google search results) and in your feed.xml site description.\r\npermalink: ':title/'\r\nbaseurl: \"/bef\" # the subpath of your site, e.g. /blog\r\nurl: \"\" # the base hostname & protocol for your site, e.g. http://example.com\r\n\r\n# Banner settings\r\nvideo: mountains.mp4 # add banner video. Add your video file to the folder video\r\nbanner-title: # add banner title\r\nbanner-desc: # add banner description\r\n\r\n# Author settings\r\nauthor-pic: face.jpg # your photo\r\nauthor-name: cm# your name\r\nabout-author: # about author\r\nemail: 2951400450@qq.com # your email\r\nphone: (496)-169-6557 # your pnone number\r\nwebsite: https://dwayne.example.com # you website\r\n\r\n# Social link\r\ngoogle_url:    # add url link\r\ntwitter_url:   # add url link\r\ninstagram_url: # add url link\r\npinterest_url: # add url link\r\ndribbble_url:  # add url link\r\nfacebook_url:  # add url link\r\n\r\n# Disqus\r\ndiscus_identifier: mr-brown # add your discus identifier.  Not your username.  To get this, register your forum here with a unique ID: https://disqus.com/admin/create/\r\n\r\n# Newsletter\r\nmailchimp: # add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e\r\n\r\n# Tracker\r\nanalytics:\r\n\r\n# Paginate\r\npaginate: 12\r\npaginate_path: /page:num/\r\n\r\n# Build settings\r\nmarkdown: kramdown\r\nplugins_dir:\r\n  - jekyll-paginate\r\n  - jekyll-sitemap\r\n\r\ngems:\r\n  - jekyll-paginate\r\n  - jekyll-sitemap\r\n\r\ninclude: [_pages]\r\nexclude: [\"node_modules\", \"gulpfile.js\", \"package.json\", \"yarn.lock\"]\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/_config.yml b/_config.yml
+--- a/_config.yml	(revision 86bee108cb9a7af39519806af58090a0b4565902)
++++ b/_config.yml	(date 1744887385935)
+@@ -1,4 +1,4 @@
+-theme: jekyll-theme-modernist
++#theme: jekyll-theme-modernist
+ logo: # add logo name
+ title: Bef - May
+ description: > # this means to ignore newlines until "baseurl:"
