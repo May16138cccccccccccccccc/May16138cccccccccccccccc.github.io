@@ -1,56 +1,59 @@
-logo: # add logo name
-title: Bef - Enjoy Freedom
+theme: jekyll-theme-modernist
+logo: M
+# add logo name
+title: Freedom - May
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  程序员/太极修炼者/化妆师/作家的跨界成长社区，探讨技术赋能、文化传承与副业变现，
+  提供技术博客运营、非遗数字化、开发者形象管理等实战指南
 permalink: ':title/'
-baseurl: "/bef" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog  /bef
+url: "https://May16138cccccccccccccccc.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
-# Banner settings
+## Banner settings
 video: mountains.mp4 # add banner video. Add your video file to the folder video
 banner-title: # add banner title
 banner-desc: # add banner description
-
-# Author settings
+#
+## Author settings
 author-pic: face.jpg # your photo
-author-name: # your name
-about-author: # about author
-email: your-email@domain.com # your email
+author-name: cm
+# your name
+about-author: 这里是程序员打破次元壁的成长社区，专为「用代码改变世界，用热爱重塑生活」的斜杠开发者打造。# about author
+email: 2951400450@qq.com # your email
 phone: (496)-169-6557 # your pnone number
-website: https://dwayne.example.com # you website
-
-# Social link
+website: https://blog.csdn.net/weixin_53538280?type=blog # you website
+#
+## Social link
 google_url:    # add url link
 twitter_url:   # add url link
 instagram_url: # add url link
 pinterest_url: # add url link
 dribbble_url:  # add url link
 facebook_url:  # add url link
-
-# Disqus
+#
+## Disqus
 discus_identifier: mr-brown # add your discus identifier.  Not your username.  To get this, register your forum here with a unique ID: https://disqus.com/admin/create/
+# #
+# ## Newsletter
+# mailchimp: # add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e
+# #
+# ## Tracker
+# analytics:
 
-# Newsletter
-mailchimp: # add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e
+# # Paginate
+# paginate: 12
+# paginate_path: /page:num/
 
-# Tracker
-analytics:
+# # Build settings
+# markdown: kramdown
+# plugins_dir:
+#  - jekyll-paginate
+#  - jekyll-sitemap
 
-# Paginate
-paginate: 12
-paginate_path: /page:num/
+# gems:
+#  - jekyll-paginate
+#  - jekyll-sitemap
 
-# Build settings
-markdown: kramdown
-plugins_dir:
-  - jekyll-paginate
-  - jekyll-sitemap
+# include: [_pages]
+# exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
 
-gems:
-  - jekyll-paginate
-  - jekyll-sitemap
-
-include: [_pages]
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
