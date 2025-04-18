@@ -7,7 +7,7 @@ description: > # this means to ignore newlines until "baseurl:"
   提供技术博客运营、非遗数字化、开发者形象管理等实战指南
 permalink: ':title/'
 baseurl: "" # the subpath of your site, e.g. /blog  /bef
-url: http://may.com # the base hostname & protocol for your site, e.g. http://example.com
+url: https://www.mayawesomeblog.com # the base hostname & protocol for your site, e.g. http://example.com
 
 ## Banner settings
 video: mountains.mp4 # add banner video. Add your video file to the folder video
