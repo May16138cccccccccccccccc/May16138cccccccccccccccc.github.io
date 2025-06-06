@@ -1,0 +1,141 @@
+Index: .idea/shelf/在进行更新之前于_2025_4_17_19_00_取消提交了更改_[更改]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/在进行更新之前于_2025_4_17_19_00_取消提交了更改_[更改]/shelved.patch b/.idea/shelf/在进行更新之前于_2025_4_17_19_00_取消提交了更改_[更改]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/在进行更新之前于_2025_4_17_19_00_取消提交了更改_[更改]/shelved.patch	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
++++ /dev/null	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
+@@ -1,16 +0,0 @@
+-Index: _config.yml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>theme: jekyll-theme-modernist\r\nlogo: # add logo name\r\ntitle: Bef - May\r\ndescription: > # this means to ignore newlines until \"baseurl:\"\r\n  Write an awesome description for your new site here. You can edit this\r\n  line in _config.yml. It will appear in your document head meta (for\r\n  Google search results) and in your feed.xml site description.\r\npermalink: ':title/'\r\nbaseurl: \"/bef\" # the subpath of your site, e.g. /blog\r\nurl: \"\" # the base hostname & protocol for your site, e.g. http://example.com\r\n\r\n# Banner settings\r\nvideo: mountains.mp4 # add banner video. Add your video file to the folder video\r\nbanner-title: # add banner title\r\nbanner-desc: # add banner description\r\n\r\n# Author settings\r\nauthor-pic: face.jpg # your photo\r\nauthor-name: cm# your name\r\nabout-author: # about author\r\nemail: 2951400450@qq.com # your email\r\nphone: (496)-169-6557 # your pnone number\r\nwebsite: https://dwayne.example.com # you website\r\n\r\n# Social link\r\ngoogle_url:    # add url link\r\ntwitter_url:   # add url link\r\ninstagram_url: # add url link\r\npinterest_url: # add url link\r\ndribbble_url:  # add url link\r\nfacebook_url:  # add url link\r\n\r\n# Disqus\r\ndiscus_identifier: mr-brown # add your discus identifier.  Not your username.  To get this, register your forum here with a unique ID: https://disqus.com/admin/create/\r\n\r\n# Newsletter\r\nmailchimp: # add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e\r\n\r\n# Tracker\r\nanalytics:\r\n\r\n# Paginate\r\npaginate: 12\r\npaginate_path: /page:num/\r\n\r\n# Build settings\r\nmarkdown: kramdown\r\nplugins_dir:\r\n  - jekyll-paginate\r\n  - jekyll-sitemap\r\n\r\ngems:\r\n  - jekyll-paginate\r\n  - jekyll-sitemap\r\n\r\ninclude: [_pages]\r\nexclude: [\"node_modules\", \"gulpfile.js\", \"package.json\", \"yarn.lock\"]\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/_config.yml b/_config.yml
+---- a/_config.yml	(revision 86bee108cb9a7af39519806af58090a0b4565902)
+-+++ b/_config.yml	(date 1744887385935)
+-@@ -1,4 +1,4 @@
+--theme: jekyll-theme-modernist
+-+#theme: jekyll-theme-modernist
+- logo: # add logo name
+- title: Bef - May
+- description: > # this means to ignore newlines until "baseurl:"
+Index: .idea/shelf/在进行更新之前于_2025_4_18_15_41_取消提交了更改_[更改]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/在进行更新之前于_2025_4_18_15_41_取消提交了更改_[更改]/shelved.patch b/.idea/shelf/在进行更新之前于_2025_4_18_15_41_取消提交了更改_[更改]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/在进行更新之前于_2025_4_18_15_41_取消提交了更改_[更改]/shelved.patch	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
++++ /dev/null	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
+@@ -1,41 +0,0 @@
+-Index: Dockerfile
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Dockerfile b/Dockerfile
+-new file mode 100644
+---- /dev/null	(date 1744942727979)
+-+++ b/Dockerfile	(date 1744942727979)
+-@@ -0,0 +1,30 @@
+-+# 编写一个Dockerfile，其中包含一个LABEL指令，用于设置镜像的作者信息。
+-+#FROM ubuntu:latest
+-+#LABEL authors="Administrator"
+-+#
+-+#ENTRYPOINT ["top", "-b"]
+-+# 基于Ubuntu 16.04镜像构建一个Docker镜像，并在其中设置作者信息。
+-+FROM ubuntu:16.04
+-+# 设置作者信息  label是元数据，可以设置多个，key和value用冒号分隔
+-+LABEL author="May"
+-+LABEL maintainer="https://blog.csdn.net/weixin_53538280?spm=1011.2124.3001.5343"
+-+# 重新构建缓存
+-+LABEL version="1.0"
+-+LABEL date="2025-04-18"
+-+ENV REFRESHED_AT 2025-04-18
+-+
+-+# 安装所需的软件包  更新，下载ruby（模板需要的工具），安装jekyll包
+-+# 安装ruby和jekyll
+-+RUN apt-get -qq update
+-+RUN apt-get -qq install ruby ruby-dev libffi-dev build-essential nodejs
+-+RUN gem install --no-rdoc --no-ri jekyll -v 2.5.3
+-+# DATA 放网站源代码
+-+VOLUME /data
+-+VOLUME /var/www/html
+-+WORKDIR /data
+-+
+-+ENTRYPOINT [ "jekyll", "build", "--destination=/var/www/html" ]
+-+
+-+EXPOSE 4000
+-+
+-+CMD ["jekyll", "serve", "--host=0.0.0.0", "--port=4000"]
+-\ No newline at end of file
+Index: .idea/shelf/_2025_4_17_19_00____.xml
+===================================================================
+diff --git a/.idea/shelf/_2025_4_17_19_00____.xml b/.idea/shelf/_2025_4_17_19_00____.xml
+deleted file mode 100644
+--- a/.idea/shelf/_2025_4_17_19_00____.xml	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
++++ /dev/null	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
+@@ -1,4 +0,0 @@
+-<changelist name="在进行更新之前于_2025_4_17_19_00_取消提交了更改_[更改]" date="1744887626714" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2025_4_17_19_00_取消提交了更改_[更改]/shelved.patch" />
+-  <option name="DESCRIPTION" value="在进行更新之前于 2025/4/17 19:00 取消提交了更改 [更改]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/_2025_4_18_15_41____.xml
+===================================================================
+diff --git a/.idea/shelf/_2025_4_18_15_41____.xml b/.idea/shelf/_2025_4_18_15_41____.xml
+deleted file mode 100644
+--- a/.idea/shelf/_2025_4_18_15_41____.xml	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
++++ /dev/null	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
+@@ -1,9 +0,0 @@
+-<changelist name="在进行更新之前于_2025_4_18_15_41_取消提交了更改_[更改]" date="1744962088140" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2025_4_18_15_41_取消提交了更改_[更改]/shelved.patch" />
+-  <option name="DESCRIPTION" value="在进行更新之前于 2025/4/18 15:41 取消提交了更改 [更改]" />
+-  <binary>
+-    <option name="BEFORE_PATH" />
+-    <option name="AFTER_PATH" value="assets/img/logo.png" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2025_4_18_15_41_取消提交了更改_[更改]/logo.png" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: _includes/social_footer.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\n<ul class=\"social_footer\">\r\n  {% if site.google_url %}\r\n  <li><a href=\"{{ site.google_url }}\" target=\"_blank\"><i class=\"fa fa-google\" aria-hidden=\"true\"></i></a></li>\r\n  {% else %}\r\n  <li><a href=\"#\" target=\"_blank\"><i class=\"fa fa-google\" aria-hidden=\"true\"></i></a></li>      \r\n  {% endif %}\r\n  {% if site.twitter_url %}\r\n  <li><a href=\"{{ site.twitter_url }}\" target=\"_blank\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a></li>\r\n  {% else %}\r\n  <li><a href=\"#\" target=\"_blank\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a></li>\r\n  {% endif %}\r\n  {% if site.instagram_url %}\r\n  <li><a href=\"{{ site.instagram_url }}\" target=\"_blank\"><i class=\"fa fa-instagram\" aria-hidden=\"true\"></i></a></li>\r\n  {% else %}\r\n  <li><a href=\"#\" target=\"_blank\"><i class=\"fa fa-instagram\" aria-hidden=\"true\"></i></a></li>\r\n  {% endif %}\r\n  {% if site.pinterest_url %}\r\n  <li><a href=\"{{ site.pinterest_url }}\" target=\"_blank\"><i class=\"fa fa-pinterest\" aria-hidden=\"true\"></i></a></li>\r\n  {% else %}\r\n  <li><a href=\"#\" target=\"_blank\"><i class=\"fa fa-pinterest\" aria-hidden=\"true\"></i></a></li>\r\n  {% endif %}\r\n  {% if site.dribbble_url %}\r\n  <li><a href=\"{{ site.dribbble_url }}\" target=\"_blank\"><i class=\"fa fa-dribbble\" aria-hidden=\"true\"></i></a></li>\r\n  {% else %}\r\n  <li><a href=\"#\" target=\"_blank\"><i class=\"fa fa-dribbble\" aria-hidden=\"true\"></i></a></li>\r\n  {% endif %}\r\n  {% if site.facebook_url %}\r\n  <li><a href=\"{{ site.facebook_url }}\" target=\"_blank\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>\r\n  {% else %}\r\n  <li><a href=\"#\" target=\"_blank\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>\r\n  {% endif %}\r\n</ul>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/_includes/social_footer.html b/_includes/social_footer.html
+--- a/_includes/social_footer.html	(revision f2b506caea9e6335f9d5ae2cf501c68aac3f9e6e)
++++ b/_includes/social_footer.html	(date 1745894620325)
+@@ -1,4 +1,3 @@
+-
+ <ul class="social_footer">
+   {% if site.google_url %}
+   <li><a href="{{ site.google_url }}" target="_blank"><i class="fa fa-google" aria-hidden="true"></i></a></li>
+@@ -30,4 +29,24 @@
+   {% else %}
+   <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+   {% endif %}
++  {% if site.github_url %}
++  <li><a href="{{ site.github_url }}" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
++  {% else %}
++  <li><a href="#" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
++  {% endif %}
++  {% if site.wechat_public_url %}
++  <li><a href="{{ site.wechat_public_url }}" target="_blank"><i class="fa fa-weixin" aria-hidden="true"></i></a></li>  {# Or use an image tag if it's a QR code path #}
++  {% else %}
++  <li><a href="#" target="_blank"><i class="fa fa-weixin" aria-hidden="true"></i></a></li>
++  {% endif %}
++  {% if site.csdn_url %}
++  <li><a href="{{ site.csdn_url }}" target="_blank"><i class="fa fa-rss" aria-hidden="true"></i></a></li> {# Using fa-rss for CSDN #}
++  {% else %}
++  <li><a href="#" target="_blank"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
++  {% endif %}
++  {% if site.yuque_url %}
++  <li><a href="{{ site.yuque_url }}" target="_blank"><i class="fa fa-book" aria-hidden="true"></i></a></li> {# Using fa-book for Yuque #}
++  {% else %}
++  <li><a href="#" target="_blank"><i class="fa fa-book" aria-hidden="true"></i></a></li>
++  {% endif %}
+ </ul>
+\ No newline at end of file

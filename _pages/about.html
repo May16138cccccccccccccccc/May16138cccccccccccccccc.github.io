@@ -1,0 +1,70 @@
+---
+layout: default
+title: 关于我 & 我的项目
+permalink: /about/
+---
+
+<!-- 1. Markmap 样式 -->
+<style>
+.markmap { /* Basic styling for the SVG container */
+  width: 100%;
+  height: 80vh; /* Adjust height as needed */
+}
+</style>
+
+<!-- 2. Markmap SVG 容器 -->
+<svg class="markmap" id="markmap-container"></svg>
+
+<!-- 3. Markdown 思维导图内容 -->
+<script type="text/template" id="markmap-data">
+# 我的项目与技能
+
+## 编程与技术
+- 全栈开发
+  - 前端: React, Vue, JavaScript, CSS
+  - 后端: Go, Python, Node.js
+  - 数据库: MySQL, PostgreSQL, Redis
+- DevOps
+  - Docker, Kubernetes
+  - CI/CD (GitHub Actions)
+- [博客文章](/archives/) <!-- 链接到归档页 -->
+
+## 兴趣与探索
+- 太极拳
+- 化妆
+- 写作
+
+## 社交媒体与链接
+- [GitHub]({{ site.github_url | default: "#" }})
+- [微信公众号]({{ site.wechat_public_url | default: "#" }}) <!-- 可能需要改为图片或特定页面 -->
+- [CSDN]({{ site.csdn_url | default: "#" }})
+- [语雀]({{ site.yuque_url | default: "#" }})
+
+</script>
+
+<!-- 4. Markmap 核心库和转换器 -->
+<script src="https://cdn.jsdelivr.net/npm/d3@6"></script>
+<script src="https://cdn.jsdelivr.net/npm/markmap-view@0.14.4"></script>
+<script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.14.4/dist/browser/transform.js"></script>
+
+<!-- 5. 初始化 Markmap -->
+<script>
+  (function() {
+    const { markmap } = window;
+    const { Transformer } = markmap;
+    const transformer = new Transformer();
+
+    const mm = markmap.Markmap;
+    const svgEl = document.getElementById('markmap-container');
+    const templateEl = document.getElementById('markmap-data');
+    const initialValue = templateEl.textContent || '';
+
+    const { root, features } = transformer.transform(initialValue);
+    const { styles, scripts } = transformer.getUsedAssets(features);
+
+    if (styles) mm.appendStyle(styles);
+    if (scripts) mm.appendScript(scripts);
+
+    mm.create(svgEl, null, root);
+  })();
+</script>
