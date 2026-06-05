@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -11,7 +10,7 @@
   <style>
     :root {
       --bg: #090909;
-      --panel-bg: rgba(12, 18, 30, 0.8);
+      --panel-bg: rgba(12, 18, 30, 0.82);
       --text: #e5e7eb;
       --accent: #818cf8;
       --accent-glow: rgba(99, 102, 241, 0.4);
@@ -42,6 +41,7 @@
       pointer-events: none;
     }
 
+    /* 底部主面板 */
     .bottom-panel {
       position: fixed;
       bottom: 16px;
@@ -55,15 +55,23 @@
       border-radius: 22px;
       border: 1px solid var(--border);
       box-shadow: 0 16px 48px 0 rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.04);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       padding: 18px 20px 16px;
-      transition: all 0.25s ease;
     }
 
-    .bottom-panel:hover {
-      border-color: rgba(255,255,255,0.14);
-      box-shadow: 0 20px 52px 0 rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.06);
+    /* 最小化状态 */
+    .bottom-panel.minimized {
+      padding: 12px 20px;
+      border-radius: 40px;
+      backdrop-filter: blur(24px);
+      background: rgba(8, 12, 24, 0.9);
     }
 
+    .bottom-panel.minimized .panel-body {
+      display: none;
+    }
+
+    /* 头部区域始终保持可见 */
     .panel-header {
       display: flex;
       align-items: center;
@@ -71,6 +79,10 @@
       margin-bottom: 12px;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    .bottom-panel.minimized .panel-header {
+      margin-bottom: 0;
     }
 
     .panel-title {
@@ -89,6 +101,39 @@
       letter-spacing: 0.04em;
       font-weight: 400;
       white-space: nowrap;
+    }
+
+    /* 最小化按钮 */
+    .minimize-btn {
+      background: rgba(255,255,255,0.05);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #cbd5e6;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .minimize-btn:hover {
+      background: rgba(129,140,248,0.3);
+      color: white;
+      transform: scale(1.02);
+    }
+
+    .minimize-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* 主体内容区 */
+    .panel-body {
+      transition: opacity 0.2s ease;
     }
 
     .formula-input-wrap {
@@ -256,10 +301,6 @@
       font-family: 'Noto Sans SC', sans-serif;
     }
 
-    .auto-interval-select option {
-      background: #1e293b;
-    }
-
     .vars-hint {
       margin-top: 8px;
       font-size: 0.62rem;
@@ -281,40 +322,49 @@
 
     @media (max-width: 640px) {
       .bottom-panel { padding: 14px 14px; border-radius: 18px; bottom: 8px; }
+      .bottom-panel.minimized { padding: 8px 16px; border-radius: 32px; }
       .preset-btn, .action-btn { font-size: 0.68rem; padding: 6px 12px; }
       #formula-input { font-size: 0.7rem; }
+      .minimize-btn { width: 36px; height: 36px; font-size: 1.15rem; }
     }
   </style>
 </head>
 <body>
   <div id="canvas-container"></div>
 
-  <div class="bottom-panel">
+  <div class="bottom-panel" id="mainPanel">
     <div class="panel-header">
       <span class="panel-title"><i class="fa-solid fa-flask"></i> 公式实验室</span>
-      <span class="author-tag">陈安锦 2025</span>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="author-tag">陈安锦 2025</span>
+        <button id="minimizeToggleBtn" class="minimize-btn" title="最小化窗口">
+          <i class="fa-solid fa-window-minimize"></i>
+        </button>
+      </div>
     </div>
 
-    <div class="formula-input-wrap" id="input-wrapper">
-      <span class="formula-label">q =</span>
-      <input type="text" id="formula-input" spellcheck="false" autocomplete="off" placeholder="表达式...">
-      <span class="status-dot valid" id="status-dot" title="状态"></span>
-    </div>
+    <div class="panel-body" id="panelBody">
+      <div class="formula-input-wrap" id="input-wrapper">
+        <span class="formula-label">q =</span>
+        <input type="text" id="formula-input" spellcheck="false" autocomplete="off" placeholder="表达式...">
+        <span class="status-dot valid" id="status-dot" title="状态"></span>
+      </div>
 
-    <div class="controls-row" id="controls-row">
-      <!-- 预设按钮由js动态生成，保证与数据同步 -->
-    </div>
+      <div class="controls-row" id="controls-row">
+        <!-- 预设按钮由js动态生成 -->
+      </div>
 
-    <div class="vars-hint">
-      <span>变量:</span> <code>x</code> <code>y</code> <code>k</code> <code>e</code> <code>d</code> <code>c</code> <code>t</code> <code>i</code>
-      <span style="color:#4b5563;">|</span> <code>sin</code> <code>cos</code> <code>tan</code> <code>sqrt</code> <code>abs</code> <code>pow</code>
-      <span style="color:#4b5563;">|</span> <code>PI</code> <code>E</code>
+      <div class="vars-hint">
+        <span>变量:</span> <code>x</code> <code>y</code> <code>k</code> <code>e</code> <code>d</code> <code>c</code> <code>t</code> <code>i</code>
+        <span style="color:#4b5563;">|</span> <code>sin</code> <code>cos</code> <code>tan</code> <code>sqrt</code> <code>abs</code> <code>pow</code>
+        <span style="color:#4b5563;">|</span> <code>PI</code> <code>E</code>
+      </div>
     </div>
   </div>
 
   <script>
     (function() {
-      // ---------- 扩展预设库 (10个精选预设) ----------
+      // ---------- 扩展预设库 ----------
       const presets = {
         original: { name: '🔮 原始', q: '3*sin(k*2)+0.3/(k+0.001)+sin(y/25)*k*(9+4*sin(e*9-d*3+t*2))' },
         ripple:   { name: '🌊 波纹', q: 'sin(k*3+t*0.7)*5+sin(y/12)*3+cos(d*2)*2' },
@@ -328,7 +378,6 @@
         glitch:   { name: '🎛️ 故障', q: 'sin(k*7+t*2)*2.5+cos(e*6)*2+sin(y/22+t)*k*3+0.9/(abs(k)+0.15)+cos(d*8)*1.8' }
       };
 
-      // 当前状态
       let currentPresetKey = 'original';
       let currentQExpression = presets.original.q;
       let qFunction = null;
@@ -336,18 +385,38 @@
       let debounceTimer = null;
       const DEBOUNCE_MS = 350;
 
-      // 自动循环相关
       let autoIntervalId = null;
       let autoActive = false;
-      let autoIntervalMs = 5000; // 默认5秒
+      let autoIntervalMs = 5000;
 
-      // DOM元素
       const formulaInput = document.getElementById('formula-input');
       const inputWrapper = document.getElementById('input-wrapper');
       const statusDot = document.getElementById('status-dot');
       const controlsRow = document.getElementById('controls-row');
+      const mainPanel = document.getElementById('mainPanel');
+      const minimizeBtn = document.getElementById('minimizeToggleBtn');
+      const minimizeIcon = minimizeBtn.querySelector('i');
 
-      // ---------- 动态编译公式 ----------
+      // ---------- 最小化/最大化逻辑 ----------
+      function toggleMinimize() {
+        const isMinimized = mainPanel.classList.contains('minimized');
+        if (isMinimized) {
+          mainPanel.classList.remove('minimized');
+          minimizeIcon.className = 'fa-solid fa-window-minimize';
+          minimizeBtn.setAttribute('title', '最小化窗口');
+        } else {
+          mainPanel.classList.add('minimized');
+          minimizeIcon.className = 'fa-solid fa-window-maximize';
+          minimizeBtn.setAttribute('title', '展开面板');
+        }
+      }
+
+      minimizeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMinimize();
+      });
+
+      // 编译表达式
       function compileExpression(expr) {
         const cleaned = expr.trim();
         if (!cleaned) throw new Error('表达式为空');
@@ -359,7 +428,6 @@
       function updateQFunction(expr) {
         try {
           const fn = compileExpression(expr);
-          // 快速测试
           fn(1,1,1,1,1,1,0,0, Math.PI,Math.E, Math.sin,Math.cos,Math.tan,Math.sqrt,Math.abs,Math.pow,Math.log,Math.exp,Math.atan2,Math.floor,Math.ceil,Math.tanh);
           qFunction = fn;
           currentQExpression = expr;
@@ -383,7 +451,6 @@
         else if (state === 'pending') statusDot.classList.add('pending');
       }
 
-      // ---------- UI 更新 ----------
       function setInputValue(expr) {
         formulaInput.value = expr;
         adjustInputSize();
@@ -404,7 +471,6 @@
         if (btn) btn.classList.add('active-preset');
       }
 
-      // 应用公式 (从预设或手动)
       function applyFormula(expr, presetKey = null) {
         setInputValue(expr);
         updateQFunction(expr);
@@ -419,7 +485,6 @@
         inputWrapper.classList.remove('error-state');
       }
 
-      // 处理输入变化
       function handleInputChange(val, fromPreset = false) {
         if (!fromPreset) setStatus('pending');
         clearTimeout(debounceTimer);
@@ -435,9 +500,8 @@
         }, fromPreset ? 0 : DEBOUNCE_MS);
       }
 
-      // ---------- 随机公式生成器 ----------
+      // 随机公式生成器
       function generateRandomFormula() {
-        // 使用多个模块随机组合，保证有趣且相对稳定
         const components = [
           () => `${(Math.random()*5+1).toFixed(2)}*sin(k*${(Math.random()*5+1).toFixed(1)}+t*${(Math.random()*2).toFixed(2)})`,
           () => `${(Math.random()*4+1).toFixed(2)}*cos(e*${(Math.random()*4+1).toFixed(1)}+t*${(Math.random()*2).toFixed(2)})`,
@@ -450,14 +514,12 @@
           () => `pow(k,${(Math.random()*2+0.5).toFixed(1)})*${(Math.random()*1.5+0.2).toFixed(2)}`,
           () => `tanh(k*${(Math.random()*3+1).toFixed(1)})*${(Math.random()*5+2).toFixed(2)}`,
         ];
-
-        // 随机选择3-6个组件
         const count = Math.floor(Math.random() * 4) + 3;
-        const selected = [];
         const indices = new Set();
         while (indices.size < count) {
           indices.add(Math.floor(Math.random() * components.length));
         }
+        const selected = [];
         for (let idx of indices) {
           selected.push(components[idx]());
         }
@@ -467,20 +529,22 @@
       function randomizeFormula() {
         const newExpr = generateRandomFormula();
         applyFormula(newExpr, null);
-        // 随机按钮高亮一下
         const randBtn = document.getElementById('random-btn');
         if (randBtn) {
           randBtn.style.transform = 'scale(0.95)';
-          setTimeout(() => { randBtn.style.transform = ''; }, 150);
+          setTimeout(() => { if(randBtn) randBtn.style.transform = ''; }, 150);
         }
       }
 
-      // ---------- 自动循环控制 ----------
+      // 自动循环
       function startAutoCycle() {
         if (autoIntervalId) clearInterval(autoIntervalId);
         autoActive = true;
-        document.getElementById('auto-btn').classList.add('active-auto');
-        document.getElementById('auto-btn').innerHTML = '<i class="fa-solid fa-spin fa-circle-notch"></i> 自动中';
+        const autoBtn = document.getElementById('auto-btn');
+        if (autoBtn) {
+          autoBtn.classList.add('active-auto');
+          autoBtn.innerHTML = '<i class="fa-solid fa-spin fa-circle-notch"></i> 自动中';
+        }
         autoIntervalId = setInterval(() => {
           randomizeFormula();
         }, autoIntervalMs);
@@ -492,8 +556,11 @@
           autoIntervalId = null;
         }
         autoActive = false;
-        document.getElementById('auto-btn').classList.remove('active-auto');
-        document.getElementById('auto-btn').innerHTML = '<i class="fa-solid fa-play"></i> 自动';
+        const autoBtn = document.getElementById('auto-btn');
+        if (autoBtn) {
+          autoBtn.classList.remove('active-auto');
+          autoBtn.innerHTML = '<i class="fa-solid fa-play"></i> 自动';
+        }
       }
 
       function toggleAutoCycle() {
@@ -507,16 +574,14 @@
       function updateAutoInterval(value) {
         autoIntervalMs = parseInt(value, 10);
         if (autoActive) {
-          // 重启定时器
           stopAutoCycle();
           startAutoCycle();
         }
       }
 
-      // ---------- 构建UI按钮 ----------
+      // 构建UI按钮
       function buildControls() {
         controlsRow.innerHTML = '';
-        // 预设按钮
         Object.entries(presets).forEach(([key, preset]) => {
           const btn = document.createElement('button');
           btn.className = 'preset-btn';
@@ -524,20 +589,16 @@
           btn.dataset.preset = key;
           btn.textContent = preset.name;
           btn.addEventListener('click', () => {
-            if (key === currentPresetKey && isFormulaValid) return;
-            applyFormula(preset.q, key);
-            // 如果自动模式开启，暂时停止？不，保留自动模式，但用户主动选择预设时最好停止自动，避免困惑
             if (autoActive) stopAutoCycle();
+            applyFormula(preset.q, key);
           });
           controlsRow.appendChild(btn);
         });
 
-        // 分隔
         const sep = document.createElement('span');
         sep.style.width = '4px';
         controlsRow.appendChild(sep);
 
-        // 随机按钮
         const randBtn = document.createElement('button');
         randBtn.id = 'random-btn';
         randBtn.className = 'action-btn random-btn';
@@ -548,7 +609,6 @@
         });
         controlsRow.appendChild(randBtn);
 
-        // 自动按钮
         const autoBtn = document.createElement('button');
         autoBtn.id = 'auto-btn';
         autoBtn.className = 'action-btn auto-btn';
@@ -556,7 +616,6 @@
         autoBtn.addEventListener('click', toggleAutoCycle);
         controlsRow.appendChild(autoBtn);
 
-        // 间隔选择
         const select = document.createElement('select');
         select.className = 'auto-interval-select';
         select.innerHTML = `
@@ -571,7 +630,7 @@
         controlsRow.appendChild(select);
       }
 
-      // ---------- 事件绑定 ----------
+      // 事件绑定
       formulaInput.addEventListener('input', () => {
         adjustInputSize();
         const val = formulaInput.value;
@@ -619,7 +678,7 @@
         }
       });
 
-      // ---------- 暴露给 p5 的接口 ----------
+      // p5全局函数
       window._getQValue = function(x, y, k, e, d, c, t, i) {
         if (!qFunction || !isFormulaValid) {
           return 3*Math.sin(k*2) + 0.3/(k+0.001) + Math.sin(y/25)*k*(9+4*Math.sin(e*9-d*3+t*2));
@@ -630,7 +689,6 @@
         } catch { return 0; }
       };
 
-      // 初始化
       function init() {
         buildControls();
         setInputValue(currentQExpression);
@@ -641,22 +699,20 @@
 
       init();
 
-      // 清理定时器 (页面关闭时)
       window.addEventListener('beforeunload', () => {
         if (autoIntervalId) clearInterval(autoIntervalId);
       });
-
-      console.log('✨ 公式实验室已启动 | 陈安锦 2025');
     })();
   </script>
 
   <script>
-    // ---------- p5.js 动画核心 ----------
+    // ---------- p5.js 动画核心 + 手机自适应缩放 ----------
     function setup() {
       const canvas = createCanvas(windowWidth, windowHeight);
       canvas.parent('canvas-container');
-      stroke(255, 150);
+      stroke(255, 180);
       pixelDensity(1);
+      noFill();
     }
 
     let t = 0;
@@ -667,13 +723,18 @@
     }
 
     function draw() {
-      background(9, 9, 9, 25);
+      background(9, 9, 9, 22);
       translate(width/2, height/2);
       t += Pl / 240;
 
       const useDynamic = window._getQValue && typeof window._getQValue === 'function';
+      // 动态自适应手机屏幕宽度比例因子：让点云水平范围始终撑满画布舒适区域 (参考基宽750)
+      const baseRefWidth = 750;
+      const scaleXFactor = width / baseRefWidth;
+      // 限制系数范围 0.6 ~ 1.6，避免过分夸张
+      const finalScaleX = Math.min(1.6, Math.max(0.6, scaleXFactor));
 
-      for (let i = 10000; i--;) {
+      for (let i = 0; i < 11000; i++) {
         const x = i;
         const y = i / 235;
         const k = (4 + sin(y*2 - t)*3) * cos(x/9);
@@ -687,10 +748,20 @@
         } else {
           q = 3*sin(k*2) + 0.3/(k+0.001) + sin(y/25)*k*(9+4*sin(e*9-d*3+t*2));
         }
-
         if (!isFinite(q)) q = 0;
-        const px = q + 30*cos(c);
-        const py = q*sin(c) + d*39 - height/2.5;
+
+        // 原始坐标
+        let px = q + 30 * cos(c);
+        let py = q * sin(c) + d * 39 - height / 2.5;
+
+        // 水平方向自适应手机：让粒子群不会因为屏幕变窄而大量溢出，同时保留动感
+        px = px * finalScaleX;
+        
+        // 垂直方向轻微自适应比例（保留绝大部分原始视觉）
+        // 针对极端屏幕比例也做软限制，确保点在画布里不至于过度偏移
+        const maxOffsetY = height * 0.85;
+        if (Math.abs(py) > maxOffsetY) py = py * 0.85;
+        
         point(px, py);
       }
     }
